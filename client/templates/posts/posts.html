@@ -1,0 +1,46 @@
+<template name="posts">
+
+    {{#if currentUser}}
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        New Post
+      </button>
+    {{/if}}
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Say Something</h4>
+        </div>
+        <div class="modal-body">
+          {{#autoForm collection="Posts" id="insertPostForm" type="insert"}}
+          {{> afQuickField name="body" rows=4}}
+          <button type="submit" id="postBtn" class="btn btn-primary">Post</button>
+          <button id="button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{/autoForm}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  {{#each posts}}
+    <div class="row post">
+      <div class="col-md-1">
+
+          <img src="{{getProfileImg userId}}" alt="Profile Pic">
+
+      </div>
+      <div class="col-md-11">
+        <small>Posted by {{username}} at {{createdAt}}</small>
+        <p>{{body}}</p>
+      </div>
+    </div>
+  {{else}}
+    <p>Nothin' to Show!</p>
+  {{/each}}
+
+</template>
